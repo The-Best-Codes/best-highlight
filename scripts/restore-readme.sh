@@ -4,11 +4,11 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 README_PATH="$ROOT_DIR/README.md"
-BACKUP_PATH="$ROOT_DIR/README.md.backup"
+BACKUP_PATH="$ROOT_DIR/read-backup"
 
 # Check if backup exists
 if [ ! -f "$BACKUP_PATH" ]; then
-    echo "ERROR: README.md.backup not found!"
+    echo "ERROR: read-backup not found!"
     exit 1
 fi
 
