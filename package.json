@@ -24,7 +24,7 @@
     }
   },
   "scripts": {
-    "build": "npm run build:js && npm run build:css && npm run minify:css",
+    "build": "rm -rf dist && npm run build:js && npm run build:css && npm run minify:css",
     "build:js": "tsup src/index.ts --format cjs,esm --dts --minify",
     "build:css": "mkdir -p dist/themes && cp src/themes/*.css dist/themes/",
     "minify:css": "tsup dist/themes/*.css --minify --clean=false --outDir dist/themes",
