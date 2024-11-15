@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -24,7 +24,7 @@
     }
   },
   "scripts": {
-    "build": "rm -rf dist && npm run build:js && npm run build:css && npm run minify:css",
+    "build": "npm run build:js && npm run build:css && npm run minify:css",
     "build:js": "tsup src/index.ts --format cjs,esm --dts --minify",
     "build:css": "mkdir -p dist/themes && cp src/themes/*.css dist/themes/",
     "minify:css": "tsup dist/themes/*.css --minify --clean=false --outDir dist/themes",
@@ -33,7 +33,9 @@
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "prepublishOnly": "npm run build"
+    "prepublish": "rm -rf dist && bash ./scripts/compress-readme.sh",
+    "postpublish": "bash ./scripts/restore-readme.sh",
+    "prepublishOnly": "npm run prepublish && npm run build"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
@@ -53,7 +55,12 @@
   "keywords": [
     "syntax-highlight",
     "highlighting",
-    "library",
+    "standalone",
+    "zero-dependencies",
+    "lightweight",
+    "fast",
+    "highlight",
+    "code",
     "syntax"
   ],
   "author": "The-Best-Codes",
