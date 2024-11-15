@@ -1,13 +1,6 @@
-@import './base.css';
-
-.bh-npm-highlight {
-  background: #1e1e1e;
-  color: #d4d4d4;
-}
-
-.bh-npm-highlight .bh-npm-token.bh-npm-keyword { color: #c586c0; }
-.bh-npm-highlight .bh-npm-token.bh-npm-string { color: #ce9178; }
-.bh-npm-highlight .bh-npm-token.bh-npm-number { color: #b5cea8; }
-.bh-npm-highlight .bh-npm-token.bh-npm-comment { color: #6a9955; }
-.bh-npm-highlight .bh-npm-token.bh-npm-punctuation { color: #d4d4d4; }
-.bh-npm-highlight .bh-npm-token.bh-npm-operator { color: #569cd6; }
+.bh-npm-token.bh-npm-keyword { color: #c586c0; }
+.bh-npm-token.bh-npm-string { color: #ce9178; }
+.bh-npm-token.bh-npm-number { color: #b5cea8; }
+.bh-npm-token.bh-npm-comment { color: #6a9955; }
+.bh-npm-token.bh-npm-punctuation { color: #d4d4d4; }
+.bh-npm-token.bh-npm-operator { color: #569cd6; }

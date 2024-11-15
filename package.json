@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -14,9 +14,14 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
     },
-    "./themes/*": "./dist/themes/*"
+    "./themes/*": {
+      "import": "./dist/themes/*",
+      "require": "./dist/themes/*",
+      "default": "./dist/themes/*"
+    }
   },
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --minify && mkdir -p dist/themes && cp src/themes/*.css dist/themes/ && tsup src/themes/*.css --minify --clean=false --outDir dist/themes",
