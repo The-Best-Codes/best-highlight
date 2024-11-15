@@ -1,0 +1,48 @@
+{
+  "name": "best-highlight",
+  "version": "1.0.0",
+  "description": "A lightweight syntax highlighter",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Best-Codes/best-highlight.git"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./themes/*": "./dist/themes/*"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --minify && mkdir -p dist/themes && cp src/themes/*.css dist/themes/ && tsup src/themes/*.css --minify --clean=false --outDir dist/themes",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.5",
+    "jsdom": "^25.0.1",
+    "@vitest/coverage-v8": "^2.1.5"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "keywords": [
+    "syntax-highlight",
+    "highlighting",
+    "library",
+    "syntax"
+  ],
+  "author": "The-Best-Codes",
+  "license": "MIT"
+}

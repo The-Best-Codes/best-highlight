@@ -1,0 +1,10 @@
+# tests
+coverage
+tests
+
+# node
+package-lock.json
+node_modules
+
+# build
+dist
