@@ -12,6 +12,8 @@ A lightweight, efficient syntax highlighting library with zero runtime dependenc
 - ⚡ Fast tokenization using optimized RegExp patterns
 - 🎯 Support for 7 popular languages with comprehensive test coverage
 
+**The code bundle size is very small - if you took a screenshot of this page, the screenshot would likely be many times larger than the bundle!**
+
 ## Installation
 
 ```bash
