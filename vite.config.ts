@@ -10,7 +10,10 @@ export default defineConfig({
         '**/types.ts',
         'node_modules/**',
         'dist/**',
-        'vite.config.ts'
+        'tests/**',
+        'vite.config.ts',
+        'rollup.config.js',
+        'tsconfig.rollup.json'
       ]
     },
   },

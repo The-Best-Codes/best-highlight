@@ -22,7 +22,8 @@
     "build": "tsup src/index.ts --format cjs,esm --dts --minify && mkdir -p dist/themes && cp src/themes/*.css dist/themes/ && tsup src/themes/*.css --minify --clean=false --outDir dist/themes",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "tsup": "^8.3.5",
