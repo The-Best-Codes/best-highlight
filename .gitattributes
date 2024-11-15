@@ -1,3 +1,0 @@
-*.md text eol=lf
-README.github.md linguist-documentation
-README.md linguist-documentation export-ignore
