@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",

@@ -5,12 +5,12 @@ A lightweight, efficient syntax highlighting library with zero runtime dependenc
 ## Features
 
 - 🚀 Zero runtime dependencies
-- 📦 Tiny bundle size (~10KB minified)
-- 🎨 Multiple themes (Light, Dark, Nord)
+- 📦 Tiny bundle size
+- 🎨 Multiple themes (Light, Dark, Nord, GitHub)
 - 🔧 First-class TypeScript support
-- 🌐 Universal compatibility (Browser, Node.js, Vite, React, etc.)
+- 🌐 Universal compatibility (Browser, Node.js)
 - ⚡ Fast tokenization using optimized RegExp patterns
-- 🎯 Support for 7+ popular languages
+- 🎯 Support for 7 popular languages with comprehensive test coverage
 
 ## Installation
 
@@ -24,13 +24,10 @@ npm install best-highlight
 
 ```javascript
 import { highlight } from 'best-highlight';
-import 'best-highlight/themes/base.css';
 
-const code = `
-function hello() {
+const code = `function hello() {
   console.log("Hello, World!");
-}
-`;
+}`;
 
 const html = highlight(code, 'javascript');
 ```
@@ -39,59 +36,69 @@ const html = highlight(code, 'javascript');
 
 ```javascript
 import { highlightElement } from 'best-highlight';
-import 'best-highlight/themes.css';
 
 // Highlight a pre element
 const element = document.querySelector('pre');
 element.setAttribute('data-language', 'javascript');
 highlightElement(element);
-
-// Change theme
-element.setAttribute('data-theme', 'dark'); // or 'nord'
 ```
 
 ### Supported Languages
 
-- JavaScript/TypeScript
-- Python
-- HTML
-- CSS
-- JSON
-- Markdown
-- More coming soon!
+The library provides robust support for 7 programming languages:
+
+- JavaScript (keywords, operators, strings, comments)
+- TypeScript (with identifier preservation)
+- Python (keywords, functions, strings, comments)
+- HTML (tags, attributes, strings, comments, doctypes, entities)
+- CSS (selectors, properties, values, punctuation)
+- JSON (strings, numbers, punctuation)
+- Markdown (headings, emphasis)
 
 ## Themes
 
-Three built-in themes are available:
+Four built-in themes are available:
 - Light (default)
 - Dark
 - Nord
+- GitHub
 
-To use a theme, add the `data-theme` attribute to your highlight container:
-```html
-<pre data-theme="dark">
-  <!-- Your code here -->
-</pre>
+Each theme is available as a separate CSS file in the themes directory:
+```css
+/* Choose one of: */
+import 'best-highlight/themes/light.css'
+import 'best-highlight/themes/dark.css'
+import 'best-highlight/themes/nord.css'
+import 'best-highlight/themes/github.css'
 ```
 
 ## API Reference
 
 ### highlight(code: string, language: string): string
-Highlights code and returns HTML string with appropriate class names.
+Highlights code and returns HTML string with appropriate class names. Each token is wrapped in a `span` with classes `bh-npm-token` and `bh-npm-{type}`.
 
 ### highlightElement(element: HTMLElement): void
-Highlights code within a DOM element. The element should have a `data-language` attribute.
+Highlights code within a DOM element. The element should have a `data-language` attribute specifying the language. Adds the `bh-npm-highlight` class to the element.
 
 ### tokenize(code: string, language: string): Token[]
-Low-level API that returns an array of tokens for custom processing.
+Low-level API that returns an array of tokens for custom processing. Each token has:
+- `type`: string (e.g., 'keyword', 'string', 'comment')
+- `content`: string (the actual token content)
 
-## Browser Support
+## Testing
 
-Works in all modern browsers:
-- Chrome/Chromium (Latest)
-- Firefox (Latest)
-- Safari (Latest)
-- Edge (Latest)
+The library includes comprehensive test coverage for all supported languages and features:
+
+- Language-specific tokenization tests
+- HTML generation and escaping
+- DOM element highlighting
+- Theme application
+- Edge cases (empty content, unknown languages)
+
+Run tests with:
+```bash
+npm test
+```
 
 ## Contributing
 
@@ -109,16 +116,10 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 # Install dependencies
 npm install
 
-# Build the library
-npm run build
-
 # Run tests
 npm test
-
-# Run tests with coverage
-npm run test:coverage
 ```
 
 ## License
 
-MIT 
+MIT
