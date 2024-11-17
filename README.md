@@ -1,5 +1,9 @@
 # best-highlight
 
+<img alt="Best Highlight Logo" src="https://github.com/user-attachments/assets/7c27c56c-58ef-44c0-bd27-8f7f72fec4d1" for="cover" width="300" />
+
+(And yes, I know the logo is ugly)
+
 A lightweight, efficient syntax highlighting library with zero runtime dependencies. Supports both CommonJS and ES Modules, perfect for both browser and Node.js environments.
 
 ## Features
