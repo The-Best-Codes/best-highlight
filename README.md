@@ -2,6 +2,8 @@
 
 <img alt="Best Highlight Logo" src="https://github.com/user-attachments/assets/b6d7abd3-e893-41dc-b46e-45c147c9a026" for="cover" width="300" />
 
+[npm Library](https://npmjs.com/package/best-highlight)
+
 A lightweight, efficient syntax highlighting library with zero runtime dependencies. Supports both CommonJS and ES Modules, perfect for both browser and Node.js environments.
 
 ## Features
