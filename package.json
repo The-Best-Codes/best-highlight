@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -15,6 +15,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
+      "browser": "./dist/index.browser.js",
       "default": "./dist/index.js"
     },
     "./themes/*": {
@@ -24,10 +25,11 @@
     }
   },
   "scripts": {
-    "build": "npm run build:js && npm run build:css && npm run minify:css",
+    "build": "npm run build:js && npm run build:css && npm run minify:css && npm run build:browser",
     "build:js": "tsup src/index.ts --format cjs,esm --dts --minify",
     "build:css": "mkdir -p dist/themes && cp src/themes/*.css dist/themes/",
     "minify:css": "tsup dist/themes/*.css --minify --clean=false --outDir dist/themes",
+    "build:browser": "tsup src/index.ts --format iife --global-name bestHighlight --minify --out-dir dist/browser",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
@@ -38,15 +40,15 @@
     "prepublishOnly": "npm run prepublish && npm run build"
   },
   "devDependencies": {
-    "@eslint/js": "^9.14.0",
+    "@eslint/js": "^9.15.0",
     "@vitest/coverage-v8": "^2.1.5",
-    "eslint": "^9.14.0",
+    "eslint": "^9.15.0",
     "globals": "^15.12.0",
     "jsdom": "^25.0.1",
     "terser": "^5.36.0",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.14.0",
+    "typescript-eslint": "^8.15.0",
     "vitest": "^2.1.5"
   },
   "files": [
