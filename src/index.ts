@@ -1,4 +1,4 @@
-import { Token} from "./types";
+import { Token } from "./types";
 import { languages } from "./langs";
 
 export function tokenize(code: string, language: string): Token[] {
