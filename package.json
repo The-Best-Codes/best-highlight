@@ -1,11 +1,12 @@
 {
   "name": "best-highlight",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "packageManager": "bun@1.1.36",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/The-Best-Codes/best-highlight.git"
@@ -25,7 +26,7 @@
     }
   },
   "scripts": {
-    "build": "npm run build:js && npm run build:css && npm run minify:css && npm run build:browser",
+    "build": "bun run build:js && bun run build:css && bun run minify:css && bun run build:browser",
     "build:js": "tsup src/index.ts --format cjs,esm --dts --minify",
     "build:css": "mkdir -p dist/themes && cp src/themes/*.css dist/themes/",
     "minify:css": "tsup dist/themes/*.css --minify --clean=false --outDir dist/themes",
@@ -37,7 +38,7 @@
     "test:coverage": "vitest run --coverage",
     "prepublish": "rm -rf dist && bash ./scripts/compress-readme.sh",
     "postpublish": "bash ./scripts/restore-readme.sh",
-    "prepublishOnly": "npm run prepublish && npm run build"
+    "prepublishOnly": "bun run prepublish && bun run build"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
@@ -47,7 +48,7 @@
     "jsdom": "^25.0.1",
     "terser": "^5.36.0",
     "tsup": "^8.3.5",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "typescript-eslint": "^8.15.0",
     "vitest": "^2.1.5"
   },
