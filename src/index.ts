@@ -1,9 +1,6 @@
 import { Token } from "./types";
 import { languages } from "./langs";
 
-// Cache for compiled patterns
-const patternCache = new Map<string, Map<string, RegExp[]>>();
-
 // Compiled whitespace pattern
 const whitespacePattern = /^\s+/;
 
@@ -12,17 +9,13 @@ export function tokenize(code: string, language: string): Token[] {
   const lang = languages[language];
   if (!lang) return [{ type: "text", content: code }];
 
-  // Get or compile patterns for this language
-  let compiledPatterns = patternCache.get(language);
-  if (!compiledPatterns) {
-    compiledPatterns = new Map();
-    for (const [type, patterns] of Object.entries(lang)) {
-      compiledPatterns.set(
-        type,
-        patterns.map((p) => new RegExp(p.source, p.flags))
-      );
-    }
-    patternCache.set(language, compiledPatterns);
+  // Compile patterns for this language
+  const compiledPatterns = new Map<string, RegExp[]>();
+  for (const [type, patterns] of Object.entries(lang)) {
+    compiledPatterns.set(
+      type,
+      patterns.map((p) => new RegExp(p.source, p.flags))
+    );
   }
 
   let remaining = code;
@@ -52,20 +45,13 @@ export function tokenize(code: string, language: string): Token[] {
       if (matched) break;
     }
 
-    // Handle whitespace and unknown characters more efficiently
+    // Handle unmatched text
     if (!matched) {
-      const whitespaceMatch = whitespacePattern.exec(remaining);
-      if (whitespaceMatch) {
-        const content = whitespaceMatch[0];
-        tokens.push({ type: "text", content });
-        remaining = remaining.slice(content.length);
-        pos += content.length;
-      } else {
-        // Take one character as text if no other match
-        tokens.push({ type: "text", content: remaining[0] });
-        remaining = remaining.slice(1);
-        pos++;
-      }
+      const match = whitespacePattern.exec(remaining);
+      const content = match ? match[0] : remaining[0];
+      tokens.push({ type: "text", content });
+      remaining = remaining.slice(content.length);
+      pos += content.length;
     }
   }
 
