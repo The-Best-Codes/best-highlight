@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.0.2-beta.2",
+  "version": "0.0.2-beta.3",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -13,14 +13,14 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/browser/index.global.js",
-      "import": "./dist/index.js",
       "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "browser": "./dist/browser/index.global.js",
       "default": "./dist/index.js"
     },
     "./themes/*": {
-      "import": "./dist/themes/*",
       "require": "./dist/themes/*",
+      "import": "./dist/themes/*",
       "default": "./dist/themes/*"
     }
   },
