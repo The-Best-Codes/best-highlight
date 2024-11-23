@@ -20,7 +20,17 @@ export function tokenize(code: string, language: string): Token[] {
 
   let remaining = code;
   let pos = 0;
+  let currentContent = "";
+  let currentType: string | null = null;
   const length = code.length;
+
+  const flushToken = () => {
+    if (currentContent && currentType) {
+      tokens.push({ type: currentType, content: currentContent });
+      currentContent = "";
+      currentType = null;
+    }
+  };
 
   while (pos < length) {
     let matched = false;
@@ -35,7 +45,15 @@ export function tokenize(code: string, language: string): Token[] {
           // Convert identifiers to text tokens except for TypeScript
           const tokenType =
             type === "identifier" && language !== "typescript" ? "text" : type;
-          tokens.push({ type: tokenType, content });
+
+          if (tokenType === currentType) {
+            currentContent += content;
+          } else {
+            flushToken();
+            currentType = tokenType;
+            currentContent = content;
+          }
+
           remaining = remaining.slice(content.length);
           pos += content.length;
           matched = true;
@@ -49,12 +67,21 @@ export function tokenize(code: string, language: string): Token[] {
     if (!matched) {
       const match = whitespacePattern.exec(remaining);
       const content = match ? match[0] : remaining[0];
-      tokens.push({ type: "text", content });
+
+      if (currentType === "text") {
+        currentContent += content;
+      } else {
+        flushToken();
+        currentType = "text";
+        currentContent = content;
+      }
+
       remaining = remaining.slice(content.length);
       pos += content.length;
     }
   }
 
+  flushToken(); // Flush any remaining token
   return tokens;
 }
 

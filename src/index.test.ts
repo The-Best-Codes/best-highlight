@@ -21,9 +21,7 @@ describe("tokenize", () => {
 
     expect(tokens).toEqual([
       { type: "keyword", content: "const" },
-      { type: "text", content: " " },
-      { type: "text", content: "x" },
-      { type: "text", content: " " },
+      { type: "text", content: " x " },
       { type: "operator", content: "=" },
       { type: "text", content: " " },
       { type: "number", content: "42" },
@@ -39,11 +37,8 @@ describe("tokenize", () => {
 
     expect(tokens).toEqual([
       { type: "keyword", content: "def" },
-      { type: "text", content: " " },
-      { type: "text", content: "hello" },
-      { type: "punctuation", content: "(" },
-      { type: "punctuation", content: ")" },
-      { type: "punctuation", content: ":" },
+      { type: "text", content: " hello" },
+      { type: "punctuation", content: "():" },
       { type: "text", content: " " },
       { type: "comment", content: "# function" },
     ]);
