@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.0.13",
+  "version": "0.0.2-beta.0",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -14,7 +14,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/index.browser.js",
+      "browser": "./dist/browser/index.global.js",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "default": "./dist/index.js"
@@ -26,31 +26,35 @@
     }
   },
   "scripts": {
-    "build": "bun run build:js && bun run build:css && bun run minify:css && bun run build:browser",
-    "build:js": "tsup src/index.ts --format cjs,esm --dts --minify",
-    "build:css": "mkdir -p dist/themes && cp src/themes/*.css dist/themes/",
-    "minify:css": "tsup dist/themes/*.css --minify --clean=false --outDir dist/themes",
+    "build": "rm -rf dist && bun run build:types && bun run build:js && bun run build:css && bun run build:browser",
+    "build:js": "bun run build:js.esm && bun run build:js.cjs",
+    "build:js.esm": "bun build src/index.ts --outfile dist/index.js --format esm --minify",
+    "build:js.cjs": "bun build src/index.ts --outfile dist/index.cjs --format cjs --minify",
+    "build:css": "bun run build:css.copy && bun run build:css.minify",
+    "build:css.copy": "mkdir -p dist/themes && cp src/themes/*.css dist/themes/",
+    "build:css.minify": "for file in dist/themes/*.css; do bun ./scripts/minify-css.ts \"$file\" > \"${file%.css}.min.css\" && mv \"${file%.css}.min.css\" \"$file\"; done",
     "build:browser": "tsup src/index.ts --format iife --global-name bestHighlight --minify --out-dir dist/browser",
+    "build:types": "rollup -c rollup.dts.config.js",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
-    "test": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "prepublish": "rm -rf dist && bash ./scripts/compress-readme.sh",
+    "dev": "bun run dev:js",
+    "dev:js": "bun build src/index.ts --outfile dist/index.js --format esm --declaration --watch",
+    "test": "bun test",
+    "test:coverage": "bun test --coverage",
+    "prepublish": "bash ./scripts/compress-readme.sh",
     "postpublish": "bash ./scripts/restore-readme.sh",
     "prepublishOnly": "bun run prepublish && bun run build"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
-    "@vitest/coverage-v8": "^2.1.5",
+    "@types/bun": "^1.1.13",
+    "dts-minify": "^0.3.3",
     "eslint": "^9.15.0",
     "globals": "^15.12.0",
     "jsdom": "^25.0.1",
-    "terser": "^5.36.0",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.15.0",
-    "vitest": "^2.1.5"
+    "rollup": "^4.27.3",
+    "rollup-plugin-dts": "^6.1.1",
+    "typescript": "^5.7.2"
   },
   "files": [
     "dist"
