@@ -1,33 +1,49 @@
 import { Token } from "./types";
 import { languages } from "./langs";
-import { TextScanner } from "./scanner";
 
 export function tokenize(code: string, language: string): Token[] {
   const tokens: Token[] = [];
   const lang = languages[language];
   if (!lang) return [{ type: "text", content: code }];
 
-  const scanner = new TextScanner(code);
+  let remaining = code;
+  while (remaining) {
+    let matched = false;
+    const tokenTypes = Object.keys(lang);
 
-  while (scanner.hasMore()) {
-    let token: Token | null = null;
-
-    // Try each rule in order
-    for (const rule of lang.rules) {
-      token = rule.match(scanner);
-      if (token) break;
+    // Try to match any token type
+    for (const type of tokenTypes) {
+      const patterns = lang[type];
+      for (const pattern of patterns) {
+        const match = remaining.match(pattern);
+        if (match && match.index === 0) {
+          // Convert identifiers to text tokens except for TypeScript
+          const tokenType =
+            type === "identifier" && language !== "typescript" ? "text" : type;
+          tokens.push({ type: tokenType, content: match[0] });
+          remaining = remaining.slice(match[0].length);
+          matched = true;
+          break;
+        }
+      }
+      if (matched) break;
     }
 
-    // If no rule matched, use fallback
-    if (!token) {
-      token = lang.fallback
-        ? lang.fallback(scanner)
-        : { type: "text", content: scanner.consume() };
+    // If no token type matched, handle whitespace and unknown characters
+    if (!matched) {
+      const whitespaceMatch = remaining.match(/^\s+/);
+      if (whitespaceMatch) {
+        tokens.push({ type: "text", content: whitespaceMatch[0] });
+        remaining = remaining.slice(whitespaceMatch[0].length);
+      } else {
+        // Take one character as text if no other match
+        tokens.push({ type: "text", content: remaining[0] });
+        remaining = remaining.slice(1);
+      }
     }
-
-    tokens.push(token as Token);
   }
 
+  // Remove token merging logic and return tokens directly
   return tokens;
 }
 

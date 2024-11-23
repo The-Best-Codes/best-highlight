@@ -1,12 +1,11 @@
 {
   "name": "best-highlight",
-  "version": "0.0.2-beta.0",
+  "version": "0.0.2-beta.1",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "packageManager": "bun@1.1.36",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/The-Best-Codes/best-highlight.git"
@@ -48,6 +47,7 @@
   "devDependencies": {
     "@eslint/js": "^9.15.0",
     "@types/bun": "^1.1.13",
+    "@types/jsdom": "^21.1.7",
     "dts-minify": "^0.3.3",
     "eslint": "^9.15.0",
     "globals": "^15.12.0",
