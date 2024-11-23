@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.0.2-beta.4",
+  "version": "0.0.2",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -31,7 +31,7 @@
     "build:js.cjs": "bun build src/index.ts --outfile dist/index.cjs --format cjs --minify",
     "build:css": "bun run build:css.copy && bun run build:css.minify",
     "build:css.copy": "mkdir -p dist/themes && cp src/themes/*.css dist/themes/",
-    "build:css.minify": "for file in dist/themes/*.css; do bun ./scripts/minify-css.ts \"$file\" > \"${file%.css}.min.css\" && mv \"${file%.css}.min.css\" \"$file\"; done",
+    "build:css.minify": "for file in dist/themes/*.css; do tsup \"$file\" --minify --out-dir dist/themes --clean false; done",
     "build:browser": "tsup src/index.ts --format iife --global-name bestHighlight --minify --out-dir dist/browser",
     "build:types": "rollup -c rollup.dts.config.js",
     "lint": "eslint src",
@@ -52,7 +52,7 @@
     "eslint": "^9.15.0",
     "globals": "^15.12.0",
     "jsdom": "^25.0.1",
-    "rollup": "^4.27.3",
+    "rollup": "^4.27.4",
     "rollup-plugin-dts": "^6.1.1",
     "typescript": "^5.7.2"
   },
