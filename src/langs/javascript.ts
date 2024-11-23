@@ -1,13 +1,21 @@
 import { TokenPattern } from "../types";
+import { commonPatterns } from "./common.patterns";
 
 export const javascript: TokenPattern = {
   keyword: [
-    /\b(const|let|var|function|return|if|else|for|while|do|break|continue|class|extends|new|this)\b/,
+    /\b(?:const|let|var|function|return|if|else|for|while|do|break|continue|class|extends|new|this)\b/,
   ],
-  string: [/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`/],
-  number: [/\b\d+\.?\d*\b/],
-  comment: [/\/\/.*$/m, /\/\*[\s\S]*?\*\//],
+  string: [
+    commonPatterns.stringDouble,
+    commonPatterns.stringSingle,
+    commonPatterns.stringBacktick
+  ],
+  number: [commonPatterns.number],
+  comment: [
+    commonPatterns.lineComment,
+    commonPatterns.blockComment
+  ],
   punctuation: [/[{}[\](),.;]/],
-  operator: [/[+\-*/%=<>!&|^~?:]/],
-  identifier: [/[a-zA-Z_]\w*/],
+  operator: [/[+\-*/%=<>!&|^~?:]+/],
+  identifier: [commonPatterns.identifier],
 };

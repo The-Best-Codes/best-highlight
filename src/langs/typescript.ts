@@ -1,13 +1,21 @@
 import { TokenPattern } from "../types";
+import { commonPatterns } from "./common.patterns";
 
 export const typescript: TokenPattern = {
   keyword: [
-    /\b(const|let|var|function|return|if|else|for|while|do|break|continue|class|extends|new|this|interface|type|namespace|enum|implements|private|protected|public|static|readonly|as|keyof|typeof|instanceof)\b/,
+    /\b(?:const|let|var|function|return|if|else|for|while|do|break|continue|class|extends|new|this|interface|type|namespace|enum|implements|private|protected|public|static|readonly|as|keyof|typeof|instanceof)\b/,
   ],
-  string: [/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`/],
-  number: [/\b\d+\.?\d*\b/],
-  comment: [/\/\/.*$/m, /\/\*[\s\S]*?\*\//],
+  string: [
+    commonPatterns.stringDouble,
+    commonPatterns.stringSingle,
+    commonPatterns.stringBacktick
+  ],
+  number: [commonPatterns.number],
+  comment: [
+    commonPatterns.lineComment,
+    commonPatterns.blockComment
+  ],
   punctuation: [/[{}[\](),.;:]/],
-  operator: [/[+\-*/%=<>!&|^~?]/],
-  identifier: [/[a-zA-Z_$][a-zA-Z0-9_$]*/],
+  operator: [/[+\-*/%=<>!&|^~?]+/],
+  identifier: [commonPatterns.identifier],
 };

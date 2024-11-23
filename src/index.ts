@@ -1,27 +1,50 @@
 import { Token } from "./types";
 import { languages } from "./langs";
 
+// Cache for compiled patterns
+const patternCache = new Map<string, Map<string, RegExp[]>>();
+
+// Compiled whitespace pattern
+const whitespacePattern = /^\s+/;
+
 export function tokenize(code: string, language: string): Token[] {
   const tokens: Token[] = [];
   const lang = languages[language];
   if (!lang) return [{ type: "text", content: code }];
 
-  let remaining = code;
-  while (remaining) {
-    let matched = false;
-    const tokenTypes = Object.keys(lang);
+  // Get or compile patterns for this language
+  let compiledPatterns = patternCache.get(language);
+  if (!compiledPatterns) {
+    compiledPatterns = new Map();
+    for (const [type, patterns] of Object.entries(lang)) {
+      compiledPatterns.set(
+        type,
+        patterns.map((p) => new RegExp(p.source, p.flags))
+      );
+    }
+    patternCache.set(language, compiledPatterns);
+  }
 
-    // Try to match any token type
-    for (const type of tokenTypes) {
-      const patterns = lang[type];
+  let remaining = code;
+  let pos = 0;
+  const length = code.length;
+
+  while (pos < length) {
+    let matched = false;
+
+    // Try each token type
+    for (const [type, patterns] of compiledPatterns.entries()) {
       for (const pattern of patterns) {
-        const match = remaining.match(pattern);
+        pattern.lastIndex = 0; // Reset regex state
+        const match = pattern.exec(remaining);
         if (match && match.index === 0) {
+          const content = match[0];
           // Convert identifiers to text tokens except for TypeScript
           const tokenType =
             type === "identifier" && language !== "typescript" ? "text" : type;
-          tokens.push({ type: tokenType, content: match[0] });
-          remaining = remaining.slice(match[0].length);
+          tokens.push({ type: tokenType, content });
+          remaining = remaining.slice(content.length);
+          pos += content.length;
           matched = true;
           break;
         }
@@ -29,21 +52,23 @@ export function tokenize(code: string, language: string): Token[] {
       if (matched) break;
     }
 
-    // If no token type matched, handle whitespace and unknown characters
+    // Handle whitespace and unknown characters more efficiently
     if (!matched) {
-      const whitespaceMatch = remaining.match(/^\s+/);
+      const whitespaceMatch = whitespacePattern.exec(remaining);
       if (whitespaceMatch) {
-        tokens.push({ type: "text", content: whitespaceMatch[0] });
-        remaining = remaining.slice(whitespaceMatch[0].length);
+        const content = whitespaceMatch[0];
+        tokens.push({ type: "text", content });
+        remaining = remaining.slice(content.length);
+        pos += content.length;
       } else {
         // Take one character as text if no other match
         tokens.push({ type: "text", content: remaining[0] });
         remaining = remaining.slice(1);
+        pos++;
       }
     }
   }
 
-  // Remove token merging logic and return tokens directly
   return tokens;
 }
 

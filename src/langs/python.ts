@@ -1,13 +1,26 @@
 import { TokenPattern } from "../types";
+import { commonPatterns } from "./common.patterns";
+
+// Python-specific patterns
+const pythonPatterns = {
+  stringTripleDouble: /"""(?:\\[\s\S]|[^\\])*?"""/,
+  stringTripleSingle: /'''(?:\\[\s\S]|[^\\])*?'''/,
+  lineComment: /#[^\n]*/,
+};
 
 export const python: TokenPattern = {
   keyword: [
-    /\b(def|class|if|else|elif|for|while|break|continue|return|import|from|as|try|except|finally|raise|with|lambda)\b/,
+    /\b(?:def|class|if|else|elif|for|while|break|continue|return|import|from|as|try|except|finally|raise|with|lambda)\b/,
   ],
-  string: [/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|"""[\s\S]*?"""|'''[\s\S]*?'''/],
-  number: [/\b\d+\.?\d*\b/],
-  comment: [/#.*$/m],
+  string: [
+    pythonPatterns.stringTripleDouble,
+    pythonPatterns.stringTripleSingle,
+    commonPatterns.stringDouble,
+    commonPatterns.stringSingle,
+  ],
+  number: [commonPatterns.number],
+  comment: [pythonPatterns.lineComment],
   punctuation: [/[{}[\](),.;:]/],
-  operator: [/[+\-*/%=<>!&|^~@]/],
-  identifier: [/[a-zA-Z_]\w*/],
+  operator: [/[+\-*/%=<>!&|^~@]+/],
+  identifier: [commonPatterns.identifier],
 };
