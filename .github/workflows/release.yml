@@ -3,6 +3,16 @@ name: Release to NPM
 on:
   release:
     types: [created]
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: "Release type"
+        required: true
+        type: choice
+        options:
+          - regular
+          - beta
+          - alpha
 
 jobs:
   build-and-publish:
@@ -29,15 +39,28 @@ jobs:
       - name: Build package
         run: bun run build
 
-      - name: Get release tag
-        id: get_tag
-        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      - name: Get release info
+        id: release_info
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            RELEASE_TAG=${GITHUB_REF#refs/tags/}
+            echo "RELEASE_TAG=$RELEASE_TAG" >> $GITHUB_OUTPUT
+            if [[ "$RELEASE_TAG" == *"-beta"* ]]; then
+              echo "RELEASE_TYPE=beta" >> $GITHUB_OUTPUT
+            elif [[ "$RELEASE_TAG" == *"-alpha"* ]]; then
+              echo "RELEASE_TYPE=alpha" >> $GITHUB_OUTPUT
+            else
+              echo "RELEASE_TYPE=regular" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "RELEASE_TYPE=${{ github.event.inputs.release_type }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Publish to npm
         run: |
-          if [[ "${{ steps.get_tag.outputs.RELEASE_TAG }}" == *"-beta"* ]]; then
+          if [ "${{ steps.release_info.outputs.RELEASE_TYPE }}" = "beta" ]; then
             npm publish --tag beta --provenance
-          elif [[ "${{ steps.get_tag.outputs.RELEASE_TAG }}" == *"-alpha"* ]]; then
+          elif [ "${{ steps.release_info.outputs.RELEASE_TYPE }}" = "alpha" ]; then
             npm publish --tag alpha --provenance
           else
             npm publish --provenance
