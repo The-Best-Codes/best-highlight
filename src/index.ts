@@ -1,5 +1,5 @@
-import { Token } from "./types";
 import { languages } from "./langs";
+import { Token } from "./types";
 
 // Compiled whitespace pattern
 const whitespacePattern = /^\s+/;
@@ -14,7 +14,7 @@ export function tokenize(code: string, language: string): Token[] {
   for (const [type, patterns] of Object.entries(lang)) {
     compiledPatterns.set(
       type,
-      patterns.map((p) => new RegExp(p.source, p.flags))
+      patterns.map((p) => new RegExp(p.source, p.flags)),
     );
   }
 
@@ -91,8 +91,8 @@ export function highlight(code: string, language: string): string {
     .map(
       (token) =>
         `<span class="bh-npm-token bh-npm-${token.type}">${escapeHtml(
-          token.content
-        )}</span>`
+          token.content,
+        )}</span>`,
     )
     .join("");
 }

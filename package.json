@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -55,7 +55,8 @@
     "rollup": "^4.28.1",
     "rollup-plugin-dts": "^6.1.1",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
   },
   "files": [
     "dist"

@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, test } from "bun:test";
-import { tokenize, highlight, highlightElement } from "./index";
 import { JSDOM } from "jsdom";
+import { highlight, highlightElement, tokenize } from "./index";
 
 // Setup DOM environment
 let dom: JSDOM;
@@ -197,7 +197,7 @@ describe("highlightElement", () => {
     highlightElement(element);
 
     expect(element.innerHTML).toBe(
-      '<span class="bh-npm-token bh-npm-text"></span>'
+      '<span class="bh-npm-token bh-npm-text"></span>',
     );
     expect(element.classList.contains("bh-npm-highlight")).toBe(true);
   });

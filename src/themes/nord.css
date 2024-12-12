@@ -1,28 +1,76 @@
-.bh-npm-token.bh-npm-keyword { color: #81a1c1; }
-.bh-npm-token.bh-npm-string { color: #a3be8c; }
-.bh-npm-token.bh-npm-number { color: #b48ead; }
-.bh-npm-token.bh-npm-comment { color: #4c566a; }
-.bh-npm-token.bh-npm-punctuation { color: #eceff4; }
-.bh-npm-token.bh-npm-operator { color: #81a1c1; }
-.bh-npm-token.bh-npm-identifier { color: #d8dee9; }
+.bh-npm-token.bh-npm-keyword {
+    color: #81a1c1;
+}
+.bh-npm-token.bh-npm-string {
+    color: #a3be8c;
+}
+.bh-npm-token.bh-npm-number {
+    color: #b48ead;
+}
+.bh-npm-token.bh-npm-comment {
+    color: #4c566a;
+}
+.bh-npm-token.bh-npm-punctuation {
+    color: #eceff4;
+}
+.bh-npm-token.bh-npm-operator {
+    color: #81a1c1;
+}
+.bh-npm-token.bh-npm-identifier {
+    color: #d8dee9;
+}
 
 /* CSS specific */
-.bh-npm-token.bh-npm-value { color: #b48ead; }
-.bh-npm-token.bh-npm-selector { color: #88c0d0; }
-.bh-npm-token.bh-npm-property { color: #8fbcbb; }
+.bh-npm-token.bh-npm-value {
+    color: #b48ead;
+}
+.bh-npm-token.bh-npm-selector {
+    color: #88c0d0;
+}
+.bh-npm-token.bh-npm-property {
+    color: #8fbcbb;
+}
 
 /* Markdown specific */
-.bh-npm-token.bh-npm-heading { color: #88c0d0; font-weight: bold; }
-.bh-npm-token.bh-npm-emphasis { font-style: italic; }
-.bh-npm-token.bh-npm-link { color: #5e81ac; text-decoration: underline; }
-.bh-npm-token.bh-npm-image { color: #5e81ac; }
-.bh-npm-token.bh-npm-code { color: #a3be8c; background: #2e3440; }
-.bh-npm-token.bh-npm-list { color: #d8dee9; }
-.bh-npm-token.bh-npm-blockquote { color: #4c566a; font-style: italic; }
-.bh-npm-token.bh-npm-horizontalRule { color: #4c566a; }
+.bh-npm-token.bh-npm-heading {
+    color: #88c0d0;
+    font-weight: bold;
+}
+.bh-npm-token.bh-npm-emphasis {
+    font-style: italic;
+}
+.bh-npm-token.bh-npm-link {
+    color: #5e81ac;
+    text-decoration: underline;
+}
+.bh-npm-token.bh-npm-image {
+    color: #5e81ac;
+}
+.bh-npm-token.bh-npm-code {
+    color: #a3be8c;
+    background: #2e3440;
+}
+.bh-npm-token.bh-npm-list {
+    color: #d8dee9;
+}
+.bh-npm-token.bh-npm-blockquote {
+    color: #4c566a;
+    font-style: italic;
+}
+.bh-npm-token.bh-npm-horizontalRule {
+    color: #4c566a;
+}
 
 /* HTML specific */
-.bh-npm-token.bh-npm-tag { color: #81a1c1; }
-.bh-npm-token.bh-npm-attribute { color: #8fbcbb; }
-.bh-npm-token.bh-npm-doctype { color: #4c566a; }
-.bh-npm-token.bh-npm-entity { color: #b48ead; }
+.bh-npm-token.bh-npm-tag {
+    color: #81a1c1;
+}
+.bh-npm-token.bh-npm-attribute {
+    color: #8fbcbb;
+}
+.bh-npm-token.bh-npm-doctype {
+    color: #4c566a;
+}
+.bh-npm-token.bh-npm-entity {
+    color: #b48ead;
+}
