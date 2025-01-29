@@ -27,14 +27,8 @@ export const markdown: TokenPattern = {
   ],
   link: [markdownPatterns.link],
   image: [markdownPatterns.image],
-  code: [
-    markdownPatterns.inlineCode,
-    markdownPatterns.codeBlock,
-  ],
-  list: [
-    markdownPatterns.unorderedList,
-    markdownPatterns.orderedList,
-  ],
+  code: [markdownPatterns.inlineCode, markdownPatterns.codeBlock],
+  list: [markdownPatterns.unorderedList, markdownPatterns.orderedList],
   blockquote: [markdownPatterns.blockquote],
   horizontalRule: [markdownPatterns.horizontalRule],
   identifier: [/[a-zA-Z][\w-]*/],

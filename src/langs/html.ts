@@ -12,16 +12,9 @@ const htmlPatterns = {
 };
 
 export const html: TokenPattern = {
-  tag: [
-    htmlPatterns.openTagStart,
-    htmlPatterns.closeTag,
-    htmlPatterns.tagEnd,
-  ],
+  tag: [htmlPatterns.openTagStart, htmlPatterns.closeTag, htmlPatterns.tagEnd],
   attribute: [htmlPatterns.attribute],
-  string: [
-    commonPatterns.stringDouble,
-    commonPatterns.stringSingle,
-  ],
+  string: [commonPatterns.stringDouble, commonPatterns.stringSingle],
   comment: [/<!--(?:(?!-->)[\s\S])*-->/],
   doctype: [/<!DOCTYPE(?:\s+[^>]+)?\s*>/i],
   entity: [/&(?:#x[a-f0-9]+|#[0-9]+|[a-z0-9]+);/i],

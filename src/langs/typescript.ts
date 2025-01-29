@@ -8,13 +8,10 @@ export const typescript: TokenPattern = {
   string: [
     commonPatterns.stringDouble,
     commonPatterns.stringSingle,
-    commonPatterns.stringBacktick
+    commonPatterns.stringBacktick,
   ],
   number: [commonPatterns.number],
-  comment: [
-    commonPatterns.lineComment,
-    commonPatterns.blockComment
-  ],
+  comment: [commonPatterns.lineComment, commonPatterns.blockComment],
   punctuation: [/[{}[\](),.;:]/],
   operator: [/[+\-*/%=<>!&|^~?]+/],
   identifier: [commonPatterns.identifier],
