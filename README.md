@@ -37,7 +37,7 @@ To use the library in a browser environment:
 ```javascript
 bestHighlight.highlight(
   'function hello() {\n  console.log("Hello, World!");\n}',
-  "javascript"
+  "javascript",
 );
 ```
 

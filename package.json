@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.2.2",
+  "version": "0.2.2-beta.0",
   "description": "A lightweight syntax highlighter",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -37,7 +37,7 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "dev": "bun run dev:js",
-    "dev:js": "bun build src/index.ts --outfile dist/index.js --format esm --declaration --watch",
+    "dev:js": "bun build src/index.ts --outfile dist/index.js --format esm --watch",
     "test": "bun test",
     "test:coverage": "bun test --coverage",
     "prepublish": "bash ./scripts/compress-readme.sh",

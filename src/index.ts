@@ -9,23 +9,15 @@ export function tokenize(code: string, language: string): Token[] {
   const lang = languages[language];
   if (!lang) return [{ type: "text", content: code }];
 
-  // Compile patterns for this language
-  const compiledPatterns = new Map<string, RegExp[]>();
-  for (const [type, patterns] of Object.entries(lang)) {
-    compiledPatterns.set(
-      type,
-      patterns.map((p) => new RegExp(p.source, p.flags)),
-    );
-  }
-
   let remaining = code;
   let pos = 0;
-  let currentContent = "";
   let currentType: string | null = null;
+  let currentContent = ""; // Moved currentContent outside the loop
   const length = code.length;
 
   const flushToken = () => {
     if (currentContent && currentType) {
+      // Added check for currentContent to avoid empty tokens
       tokens.push({ type: currentType, content: currentContent });
       currentContent = "";
       currentType = null;
@@ -35,35 +27,39 @@ export function tokenize(code: string, language: string): Token[] {
   while (pos < length) {
     let matched = false;
 
-    // Try each token type
-    for (const [type, patterns] of compiledPatterns.entries()) {
-      for (const pattern of patterns) {
-        pattern.lastIndex = 0; // Reset regex state
-        const match = pattern.exec(remaining);
-        if (match && match.index === 0) {
-          const content = match[0];
-          // Convert identifiers to text tokens except for TypeScript
-          const tokenType =
-            type === "identifier" && language !== "typescript" ? "text" : type;
+    const compiledPatterns = lang;
+    for (const [type, patterns] of Object.entries(compiledPatterns)) {
+      // Use Object.entries directly on compiledPatterns (lang)
+      if (Array.isArray(patterns)) {
+        // Added check to ensure patterns is an array
+        for (const pattern of patterns) {
+          pattern.lastIndex = 0; // Reset regex state
+          const match = pattern.exec(remaining);
+          if (match && match.index === 0) {
+            const content = match[0];
+            const tokenType =
+              type === "identifier" && language !== "typescript"
+                ? "text"
+                : type;
 
-          if (tokenType === currentType) {
-            currentContent += content;
-          } else {
-            flushToken();
-            currentType = tokenType;
-            currentContent = content;
+            if (tokenType === currentType) {
+              currentContent += content;
+            } else {
+              flushToken();
+              currentType = tokenType;
+              currentContent = content;
+            }
+
+            remaining = remaining.slice(content.length);
+            pos += content.length;
+            matched = true;
+            break;
           }
-
-          remaining = remaining.slice(content.length);
-          pos += content.length;
-          matched = true;
-          break;
         }
       }
       if (matched) break;
     }
 
-    // Handle unmatched text
     if (!matched) {
       const match = whitespacePattern.exec(remaining);
       const content = match ? match[0] : remaining[0];
