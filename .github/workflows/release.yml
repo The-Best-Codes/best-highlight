@@ -37,11 +37,11 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Run tests
-        run: bun test
-
       - name: Build package
         run: bun run build
+
+      - name: Run tests
+        run: bun test
 
       - name: Get release info
         id: release_info
