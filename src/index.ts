@@ -10,6 +10,9 @@ const HTML_ESCAPE_MAP = new Map([
   [39, "&#039;"], // '
 ]);
 
+// Pre-compile whitespace pattern for better performance
+const whitespacePattern = /^\s+/;
+
 // Ultra-fast HTML escaping using character codes
 function escapeHtml(text: string): string {
   let result = "";
@@ -53,9 +56,6 @@ export function tokenize(code: string, language: string): Token[] {
       currentType = null;
     }
   };
-
-  // Pre-compile whitespace pattern for better performance
-  const whitespacePattern = /^\s+/;
 
   while (pos < length) {
     let matched = false;
