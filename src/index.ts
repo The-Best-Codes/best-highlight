@@ -142,8 +142,11 @@ export function* tokenizeStream(
   language: string,
   chunkSize: number = 1000,
 ): Generator<Token[], void, unknown> {
-  if (code.length <= chunkSize) {
-    yield tokenize(code, language);
+  if (!code || code.length <= chunkSize) {
+    const tokens = tokenize(code, language);
+    if (tokens.length > 0) {
+      yield tokens;
+    }
     return;
   }
 
