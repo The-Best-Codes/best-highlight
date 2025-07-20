@@ -1,6 +1,6 @@
 {
   "name": "best-highlight",
-  "version": "0.2.2-beta.0",
+  "version": "0.3.0",
   "description": "A high-performance, lightweight syntax highlighter with streaming support",
   "type": "module",
   "main": "./dist/index.cjs",
