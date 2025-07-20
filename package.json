@@ -1,7 +1,7 @@
 {
   "name": "best-highlight",
-  "version": "0.2.2-beta.0",
-  "description": "A lightweight syntax highlighter",
+  "version": "0.3.0",
+  "description": "A high-performance, lightweight syntax highlighter with streaming support",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -68,9 +68,15 @@
     "zero-dependencies",
     "lightweight",
     "fast",
+    "high-performance",
+    "streaming",
+    "ai",
+    "real-time",
     "highlight",
     "code",
-    "syntax"
+    "syntax",
+    "tokenizer",
+    "parser"
   ],
   "author": "The-Best-Codes",
   "license": "MIT"
